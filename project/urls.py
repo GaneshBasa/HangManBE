@@ -17,15 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from app.views import greet, new_game, game_state, guess
+from app.views import greet, games_list, new_game, game_state, guess
 
 
 urlpatterns = [
   # path( '', include( router.urls ) ),
   path( '', greet ),
-  # path( 'game/new', new_game ),
-  # path( 'game/<int:game_id>', game_state ),
-  # path( 'game/<int:game_id>/guess', guess ),
+  path( 'games', games_list ),
+  path( 'game/new', new_game ),
+  path( 'game/<int:game_id>', game_state ),
+  path( 'game/<int:game_id>/guess', guess ),
   # path( 'admin/', admin.site.urls ),
   # path( 'api-auth/', include( 'rest_framework.urls', namespace='rest_framework' ) )
 ]

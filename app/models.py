@@ -12,17 +12,17 @@ class Game( Model ):
   incorrect_guesses = PositiveSmallIntegerField( default=0 )
   max_incorrect_guesses = PositiveSmallIntegerField()
 
-  def __str__(self):
+  def __str__( self ):
     return f'Game {self.id} - {self.state}'
 
-  def current_state_of_word(self):
+  def current_state_of_word( self ):
     guessed_letters = self.guesses.values_list('letter', flat=True)
     return ''.join([letter if letter in guessed_letters else '_' for letter in self.word])
 
-  def remaining_incorrect_guesses(self):
+  def remaining_incorrect_guesses( self ):
     return self.max_incorrect_guesses - self.incorrect_guesses
 
-  def update_state(self):
+  def update_state( self ):
     if '_' not in self.current_state_of_word():
       self.state = 'Won'
     elif self.remaining_incorrect_guesses() <= 0:
@@ -37,5 +37,5 @@ class Guess( Model ):
   letter = CharField( max_length=1 )
   correct = BooleanField()
 
-  def __str__(self):
+  def __str__( self ):
     return f'{self.letter} in Game {self.game.id} - {'Correct' if self.correct else 'Incorrect'}'
