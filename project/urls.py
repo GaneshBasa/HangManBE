@@ -16,19 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
 
-from app.views import UserViewSet, GroupViewSet, GameViewSet, new_game, game_state, guess
-
-
-router = DefaultRouter()
-router.register( r'users', UserViewSet )
-router.register( r'groups', GroupViewSet )
-router.register( r'games', GameViewSet )
+from app.views import new_game, game_state, guess
 
 
 urlpatterns = [
-  path( '', include( router.urls ) ),
+  # path( '', include( router.urls ) ),
   path( 'game/new', new_game ),
   path( 'game/<int:game_id>', game_state ),
   path( 'game/<int:game_id>/guess', guess ),
