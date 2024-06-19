@@ -10,6 +10,11 @@ WORDS = [ 'Hangman', 'Python', 'Audacix', 'Bottle', 'Pen' ]
 
 
 @api_view()
+def greet( request ):
+  return Response({ 'message': 'Hello from Django HangMan App BackEnd' })
+
+
+@api_view()
 def new_game( request ):
   selected_word = choice( WORDS )
   max_incorrect_guesses = ceil( len( selected_word ) / 2 )
