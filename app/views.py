@@ -5,6 +5,7 @@ from random import choice
 from math import ceil
 
 from app.models import Game, Guess
+from app.serializers import GameSerializer
 
 WORDS = [ 'Hangman', 'Python', 'Audacix', 'Bottle', 'Pen' ]
 
@@ -12,6 +13,13 @@ WORDS = [ 'Hangman', 'Python', 'Audacix', 'Bottle', 'Pen' ]
 @api_view()
 def greet( request ):
   return Response({ 'message': 'Hello from Django HangMan App BackEnd' })
+
+
+@api_view()
+def games_list( request ):
+  games = Game.objects.all()
+  serialized_games = GameSerializer( games, many=True )
+  return Response( serialized_games.data )
 
 
 @api_view()
