@@ -33,9 +33,9 @@ class Game( Model ):
 
 
 class Guess( Model ):
-  game = ForeignKey(Game, related_name='guesses', on_delete=CASCADE)
-  letter = CharField(max_length=1)
+  game = ForeignKey( Game, related_name='guesses', on_delete=CASCADE )
+  letter = CharField( max_length=1 )
   correct = BooleanField()
 
   def __str__(self):
-    return f'{self.letter} in Game {self.game.id} - {"Correct" if self.correct else "Incorrect"}'
+    return f'{self.letter} in Game {self.game.id} - {'Correct' if self.correct else 'Incorrect'}'
