@@ -77,6 +77,4 @@ def guess( request, game_id ):
 
   serialized_game = GameSerializer( game ).data
 
-  serialized_game.update({ 'correct': correct })
-
-  return Response( serialized_game )
+  return Response({ 'state': serialized_game, 'correct': correct })

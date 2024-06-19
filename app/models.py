@@ -21,13 +21,13 @@ class Game( Model ):
     guessed_letters = self.guesses.values_list( 'letter', flat=True )
     return ''.join([letter if letter in guessed_letters else '_' for letter in self.word])
 
-  def remaining_incorrect_guesses( self ):
+  def guesses_incorrect_remaining( self ):
     return self.guesses_incorrect_max - self.guesses_incorrect
 
   def update_state( self ):
     if '_' not in self.word_state():
       self.game_state = GameState.WON
-    elif self.remaining_incorrect_guesses() <= 0:
+    elif self.guesses_incorrect_remaining() <= 0:
       self.game_state = GameState.LOST
     else:
       self.game_state = GameState.INPROGRESS
