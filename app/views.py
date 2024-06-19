@@ -7,7 +7,7 @@ from random import choice
 from math import ceil
 
 from app.models import Game, Guess
-from app.serializers import GroupSerializer, UserSerializer
+from app.serializers import GroupSerializer, UserSerializer, GameSerializer
 
 WORDS = [ 'Hangman', 'Python', 'Audacix', 'Bottle', 'Pen' ]
 
@@ -24,6 +24,13 @@ class GroupViewSet( ModelViewSet ):
   queryset = Group.objects.all().order_by( 'name' )
   serializer_class = GroupSerializer
   permission_classes = [ permissions.IsAuthenticated ]
+
+
+class GameViewSet( ModelViewSet ):
+  # API endpoint that allows games to be viewed or edited
+  queryset = Game.objects.all()
+  serializer_class = GameSerializer
+  permission_classes = [ permissions.AllowAny ]
 
 
 @api_view()
