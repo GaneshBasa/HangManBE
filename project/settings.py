@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from json import loads
+
+from project.helpers import get_env_var
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
 
     # Third-Party Apps
     'rest_framework',
+    "corsheaders",
 
     # Local Apps
     'app'
@@ -54,7 +59,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = CORS_ALLOW_CREDENTIALS = DEBUG
+
+if CORS_ALLOWED_ORIGINS := get_env_var( 'CORS_ALLOWED_ORIGINS' ):
+  CORS_ALLOWED_ORIGINS = loads( CORS_ALLOWED_ORIGINS )
+else:
+  CORS_ALLOWED_ORIGINS = [ 'http://localhost:3000' ]
+
+CORS_ALLOWED_ORIGIN_REGEXES = get_env_var( 'CORS_ALLOWED_ORIGIN_REGEXES' ) or []
 
 ROOT_URLCONF = 'project.urls'
 
@@ -128,3 +144,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.SmallAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
