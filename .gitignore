@@ -3,3 +3,4 @@ __pycache__
 migrations
 temp
 *.sqlite3
+.vercel
