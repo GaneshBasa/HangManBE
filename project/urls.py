@@ -1,4 +1,4 @@
-"""
+'''
 URL configuration for project project.
 
 The `urlpatterns` list routes URLs to  For more information please see:
@@ -13,20 +13,16 @@ Class-based views
 Including another URLconf
   1. Import the include() function: from django.urls import include, path
   2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import include, path
+'''
+from django.urls import path
 
 from app.views import greet, games_list, new_game, game_state, guess
 
 
 urlpatterns = [
-  # path( '', include( router.urls ) ),
   path( '', greet ),
   path( 'games', games_list ),
   path( 'game/new', new_game ),
   path( 'game/<int:game_id>', game_state ),
-  path( 'game/<int:game_id>/guess', guess ),
-  # path( 'admin/', admin.site.urls ),
-  # path( 'api-auth/', include( 'rest_framework.urls', namespace='rest_framework' ) )
+  path( 'game/<int:game_id>/guess', guess )
 ]
